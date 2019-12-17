@@ -5,6 +5,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 
 export default function CustomerTrainingList() {
         const [customers, setCustomers] = useState([]);
@@ -57,10 +61,10 @@ export default function CustomerTrainingList() {
         const columnsOne = [
             {
                 title: 'Edit',
-                render: rowData => <EditIcon updateCustomer={updateCustomer} customer={rowData.original}></EditIcon>
+                render: rowData => <IconButton><EditCustomer customer={rowData}/><EditIcon /></IconButton>
             },            {
                 title: 'Delete',
-                render: row => <DeleteIcon onClick={() => deleteCustomer(row.links[0].href)}></DeleteIcon>
+                render: row => <IconButton aria-label="delete" onClick={() => deleteCustomer(row.links[0].href)}><DeleteIcon /></IconButton>
             },            {
                 title: 'Firstname',
                 field: 'firstname',
@@ -87,7 +91,9 @@ export default function CustomerTrainingList() {
 
         return (
             <div>
-            <AddCustomer saveCustomer={saveCustomer} />
+            <Fab color="primary" aria-label="add">
+                    <AddIcon><AddCustomer saveCustomer={saveCustomer}/></AddIcon>
+            </Fab>
                 <MaterialTable
                  title="Customers"
                  defaultPageSize={5} 
