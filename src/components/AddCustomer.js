@@ -33,7 +33,7 @@ export default function AddCustomer(props) {
 
     return(
         <div>
-            <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+            <Fab position="absolute" color="primary" aria-label="add" onClick={handleClickOpen} >
                 <AddIcon />
             </Fab>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import 'react-table-v6/react-table.css';
 import MaterialTable from 'material-table';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 
 export default function CustomerTrainingList() {
         const [customers, setCustomers] = useState([]);
@@ -116,7 +114,7 @@ export default function CustomerTrainingList() {
                  data={customers} 
                  columns={columnsOne}
                  />
-                 <AddCustomer saveCustomer={saveCustomer}/>
+                 <AddCustomer saveCustomer={saveCustomer} />
             </div>
         );
 }
