@@ -3,10 +3,13 @@ import 'react-table-v6/react-table.css';
 import MaterialTable from 'material-table';
 import Moment from 'react-moment';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddTraining from './AddTraining';
 
 export default function CustomerTrainingList() {
         const [trainings, setTrainings] = useState([]);
- /*       const [customername, setCustomername] = useState({firstname: '', lastname: ''}); */
+        const [customer, setCustomer] = useState({
+            firstname: '', lastname: '', streetaddress: '', postcode: '', phone: '', city: '', email: ''   
+        });
 
         useEffect(() => {
             fetchTrainingData();
@@ -18,12 +21,15 @@ export default function CustomerTrainingList() {
             .then(dataTwo => setTrainings(dataTwo.content))
         }
 
-/*        const fetchCustomerName = (linkCustomer) => {
+       const fetchCustomerName = (linkCustomer) => {
+           console.log(linkCustomer)
             fetch(linkCustomer)
             .then(respCustomer => respCustomer.json())
-            .then(nameData => setCustomername({firstname: nameData.firstname, lastname:nameData.lastname}))
+            .then(data => setCustomer(data.content))
             .catch(error => console.error(error))
-} */
+            console.log(customer);
+            return <p>{customer.firstname}</p>
+        }
 
         const deleteTraining = (link) => {
             if (window.confirm('Are you sure you want to delete this training?')) {
@@ -38,7 +44,7 @@ export default function CustomerTrainingList() {
                 title: 'Delete',
                 render: rowData => <DeleteIcon onClick={() => deleteTraining(rowData.links[0].href)}></DeleteIcon>
                 
-            },            {
+            },           {
                 title: 'Date',
                 field: 'date',
                 render: rowdate => <Moment format="DD/MM/YYYY">{rowdate.date}</Moment>
@@ -49,16 +55,13 @@ export default function CustomerTrainingList() {
             },            {
                 title: 'Activity',
                 field: 'activity'
-            }/*,          {
-                title: 'Customer',
-                render: rowCustomer => <p>{fetchCustomerName(rowCustomer.links[2].href)}</p>
-            } */
+            }
         ]
 
         return (
             <div>
                 <MaterialTable
-                title="Trainings"
+                title='Trainings'
                 defaultPageSize={10}
                 filterable={true}
                 data={trainings}

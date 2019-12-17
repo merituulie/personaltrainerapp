@@ -5,8 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import AddTraining from './AddTraining';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
@@ -44,6 +43,24 @@ export default function CustomerTrainingList() {
             .catch(err => console.error(err))
         }
 
+        const saveTraining = (training, link) => {
+            console.log(training)
+            fetch('https://customerrest.herokuapp.com/api/trainings',
+                {method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: {
+                    'date':  JSON.stringify(training.date.toISOString),
+                    'activity': JSON.stringify(training.activity),
+                    'duration'  : JSON.stringify(training.duration),
+                    'customer' : JSON.stringify('https://customerrest.herokuapp.com/api/gettrainings/')
+                } 
+            })
+            .then(res => fetchCustomerData())
+            .catch(err => console.error(err))
+        }
+
         const updateCustomer = (customer, link) => {
             fetch(link,
                 {method: 'PUT',
@@ -51,17 +68,15 @@ export default function CustomerTrainingList() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(customer)
-                })
-                .then(res => fetchCustomerData())
-                .thencatch(err => console.error(err))
+            })
+                .then(resp => fetchCustomerData())
+                .catch(err => console.error(err))
         }
-
-
 
         const columnsOne = [
             {
                 title: 'Edit',
-                render: rowData => <IconButton><EditCustomer customer={rowData}/><EditIcon /></IconButton>
+                render: rowData => <EditCustomer updateCustomer={updateCustomer} customer={rowData}/>
             },            {
                 title: 'Delete',
                 render: row => <IconButton aria-label="delete" onClick={() => deleteCustomer(row.links[0].href)}><DeleteIcon /></IconButton>
@@ -86,14 +101,14 @@ export default function CustomerTrainingList() {
             },            {
                 title: 'Phone',
                 field: 'phone'
+            },            {
+                title: 'Add Training',
+                render: row => <AddTraining saveTraining={saveTraining} training={row}/>
             }
         ]
 
         return (
             <div>
-            <Fab color="primary" aria-label="add">
-                    <AddIcon><AddCustomer saveCustomer={saveCustomer}/></AddIcon>
-            </Fab>
                 <MaterialTable
                  title="Customers"
                  defaultPageSize={5} 
@@ -101,6 +116,7 @@ export default function CustomerTrainingList() {
                  data={customers} 
                  columns={columnsOne}
                  />
+                 <AddCustomer saveCustomer={saveCustomer}/>
             </div>
         );
 }

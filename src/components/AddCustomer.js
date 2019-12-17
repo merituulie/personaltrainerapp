@@ -5,6 +5,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 export default function AddCustomer(props) {
     const [open, setOpen] = useState(false);
@@ -31,7 +33,9 @@ export default function AddCustomer(props) {
 
     return(
         <div>
-            <Button style={{margin: 10}} variant="contained" color="primary" onClick={handleClickOpen}>Add Customer</Button>
+            <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+                <AddIcon />
+            </Fab>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">New Customer</DialogTitle>
                         <DialogContent>
