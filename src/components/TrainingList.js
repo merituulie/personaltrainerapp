@@ -55,7 +55,10 @@ export default function CustomerTrainingList() {
             },            {
                 title: 'Activity',
                 field: 'activity'
-            }
+            },          {
+                title: 'Customer',
+                render: row => fetchCustomerName(row.links[2].href)
+            } 
         ]
 
         return (

@@ -50,7 +50,7 @@ export default function CustomerTrainingList() {
                     'Content-Type': 'application/json'
                 },
                 body: {
-                    'date':  JSON.stringify(training.date.toISOString),
+                    'date':  JSON.stringify(training.date).toISOString,
                     'activity': JSON.stringify(training.activity),
                     'duration'  : JSON.stringify(training.duration),
                     'customer' : JSON.stringify(training.customerLink)
