@@ -6,14 +6,13 @@ import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import IconButton from '@material-ui/core/IconButton';
-import Moment from 'react-moment';
 
 export default function CustomerTrainingList() {
         const [customers, setCustomers] = useState([]);
 
         useEffect(() => {
             fetchCustomerData();
-        }, []);
+        }, [])
 
         const fetchCustomerData = () => {
             fetch('https://customerrest.herokuapp.com/api/customers')
@@ -22,7 +21,6 @@ export default function CustomerTrainingList() {
         }
 
         const deleteCustomer = (linkC) => {
-            console.log(linkC);
             if (window.confirm('Are you sure you want to delete this customer?')) {
                 fetch(linkC, {method:'DELETE'})
                 .then(respOne => fetchCustomerData())
@@ -49,12 +47,7 @@ export default function CustomerTrainingList() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: {
-                    'date':  JSON.stringify(training.date).toISOString,
-                    'activity': JSON.stringify(training.activity),
-                    'duration'  : JSON.stringify(training.duration),
-                    'customer' : JSON.stringify(training.customerLink)
-                } 
+                body: JSON.stringify(training) 
             })
             .then(res => fetchCustomerData())
             .catch(err => console.error(err))

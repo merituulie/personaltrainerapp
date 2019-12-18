@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 export default function AddTraining(props) {
     const [open, setOpen] = useState(false);
     const [training, setTraining] = useState({
-        date: '', duration: '', activity: '', customerLink: ''
+        date: '', duration: '', activity: '', customer: ''
     });
 
     const handleClickOpen = () => {
