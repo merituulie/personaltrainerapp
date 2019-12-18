@@ -7,19 +7,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Moment from 'react-moment';
 
 export default function AddTraining(props) {
     const [open, setOpen] = useState(false);
     const [training, setTraining] = useState({
-        date: '', duration: '', activity: ''
+        date: '', duration: '', activity: '', customerLink: ''
     });
 
     const handleClickOpen = () => {
         setTraining({
             date: props.training.date,
             duration: props.training.duration,
-            activity: props.training.activity
+            activity: props.training.activity,
+            customerLink: props.trainingCustomer
         });
         setOpen(true);
       };
@@ -47,6 +47,7 @@ export default function AddTraining(props) {
                         <DialogContent>
                             <TextField
                                 autoFocus
+                                type="date"
                                 margin="dense"
                                 name="date"
                                 value={training.date}

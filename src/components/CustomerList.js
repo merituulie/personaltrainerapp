@@ -6,6 +6,7 @@ import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import IconButton from '@material-ui/core/IconButton';
+import Moment from 'react-moment';
 
 export default function CustomerTrainingList() {
         const [customers, setCustomers] = useState([]);
@@ -41,7 +42,7 @@ export default function CustomerTrainingList() {
             .catch(err => console.error(err))
         }
 
-        const saveTraining = (training, link) => {
+        const saveTraining = (training) => {
             console.log(training)
             fetch('https://customerrest.herokuapp.com/api/trainings',
                 {method: 'POST',
@@ -52,7 +53,7 @@ export default function CustomerTrainingList() {
                     'date':  JSON.stringify(training.date.toISOString),
                     'activity': JSON.stringify(training.activity),
                     'duration'  : JSON.stringify(training.duration),
-                    'customer' : JSON.stringify('https://customerrest.herokuapp.com/api/gettrainings/')
+                    'customer' : JSON.stringify(training.customerLink)
                 } 
             })
             .then(res => fetchCustomerData())
@@ -101,7 +102,7 @@ export default function CustomerTrainingList() {
                 field: 'phone'
             },            {
                 title: 'Add Training',
-                render: row => <AddTraining saveTraining={saveTraining} training={row}/>
+                render: row => <AddTraining saveTraining={saveTraining} training={row} trainingCustomer={row.links[0].href}/>
             }
         ]
 
