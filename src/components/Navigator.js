@@ -42,6 +42,7 @@ export default function Navigator() {
                 >
                     <MenuItem onClick={handleClose}><Link className="nav-link"to="/CustomerList" >Customers</Link></MenuItem>
                     <MenuItem onClick={handleClose}><Link className="nav-link"to="/TrainingList">Trainings</Link></MenuItem>
+                    <MenuItem onClick={handleClose}><Link className="nav-link"to="/TrainingCalendar">Calendar</Link></MenuItem>
                 </Menu>
         <Typography variant="h6" >
               Personal trainer

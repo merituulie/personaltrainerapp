@@ -6,6 +6,8 @@ import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Snackbar from './Snackbar';
 
 export default function CustomerTrainingList() {
         const [customers, setCustomers] = useState([]);
@@ -26,9 +28,11 @@ export default function CustomerTrainingList() {
                 .then(respOne => fetchCustomerData())
                 .catch(err => console.error(err))
             }
+
         }
 
         const saveCustomer = (customer) => {
+            if(window.alert('Customer saved!')) {
             fetch('https://customerrest.herokuapp.com/api/customers',
                 {method: 'POST',
                 headers: {
@@ -38,10 +42,11 @@ export default function CustomerTrainingList() {
             })
             .then(res => fetchCustomerData())
             .catch(err => console.error(err))
+            }
+
         }
 
         const saveTraining = (training) => {
-            console.log(training)
             fetch('https://customerrest.herokuapp.com/api/trainings',
                 {method: 'POST',
                 headers: {
@@ -51,6 +56,7 @@ export default function CustomerTrainingList() {
             })
             .then(res => fetchCustomerData())
             .catch(err => console.error(err))
+
         }
 
         const updateCustomer = (customer, link) => {
@@ -71,7 +77,7 @@ export default function CustomerTrainingList() {
                 render: rowData => <EditCustomer updateCustomer={updateCustomer} customer={rowData}/>
             },            {
                 title: 'Delete',
-                render: row => <IconButton aria-label="delete" onClick={() => deleteCustomer(row.links[0].href)}><DeleteIcon /></IconButton>
+                render: row => <Tooltip title="Delete"><IconButton aria-label="delete" onClick={() => deleteCustomer(row.links[0].href)}><DeleteIcon /></IconButton></Tooltip>
             },            {
                 title: 'Firstname',
                 field: 'firstname',
