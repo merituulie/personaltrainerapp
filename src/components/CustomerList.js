@@ -7,10 +7,15 @@ import EditCustomer from './EditCustomer';
 import AddTraining from './AddTraining';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import Snackbar from './Snackbar';
+import SimpleSnackbar from './SimpleSnackbar';
 
 export default function CustomerTrainingList() {
         const [customers, setCustomers] = useState([]);
+        const [hidden, setHidden] = useState(true);
+
+        const handleShow = () =>{
+            setHidden(false);
+        }
 
         useEffect(() => {
             fetchCustomerData();
@@ -27,8 +32,9 @@ export default function CustomerTrainingList() {
                 fetch(linkC, {method:'DELETE'})
                 .then(respOne => fetchCustomerData())
                 .catch(err => console.error(err))
+                setHidden(false);
             }
-
+            handleShow();
         }
 
         const saveCustomer = (customer) => {
@@ -43,7 +49,7 @@ export default function CustomerTrainingList() {
             .then(res => fetchCustomerData())
             .catch(err => console.error(err))
             }
-
+            handleShow();
         }
 
         const saveTraining = (training) => {
@@ -60,6 +66,7 @@ export default function CustomerTrainingList() {
             })})
             .then(res => fetchCustomerData())
             .catch(err => console.error(err))
+            handleShow();
         }
 
         const updateCustomer = (customer, link) => {
@@ -72,6 +79,7 @@ export default function CustomerTrainingList() {
             })
                 .then(resp => fetchCustomerData())
                 .catch(err => console.error(err))
+                handleShow();
         }
 
         const columnsOne = [
@@ -110,6 +118,7 @@ export default function CustomerTrainingList() {
 
         return (
             <div>
+                {hidden===false ? <SimpleSnackbar /> : null}
                 <MaterialTable
                  title="Customers"
                  defaultPageSize={5} 
