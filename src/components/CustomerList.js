@@ -52,11 +52,14 @@ export default function CustomerTrainingList() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(training) 
-            })
+                body: JSON.stringify({
+                'date': training.date,
+                'activity': training.activity,
+                'duration': training.duration,
+                'customer': training.customerLink
+            })})
             .then(res => fetchCustomerData())
             .catch(err => console.error(err))
-
         }
 
         const updateCustomer = (customer, link) => {

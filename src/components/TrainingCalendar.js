@@ -14,13 +14,13 @@ export default function TrainingCalendar() {
         .then(responseTwo => responseTwo.json())
         .then(dataTwo => setEventsList(dataTwo))
 
-        console.log(eventsList);
+        console.log([eventsList]);
     }
 
     return(
         <div>
             <Calendar
-            events={eventsList}
+            events={[eventsList]}
             />
         </div>
     );
